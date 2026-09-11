@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Appweb Contactos{% endblock %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+
+    <div class="col-md-2">
+      <h4><strong>Etiquetas</strong></h4>  
+      <div class="list-group">
+      
+        {% for eti in etiquetas %}
+          {% if etiqueta.nombre==eti.nombre %}
+            <a class="list-group-item active" href="{{url_for("contactos",id=eti.id)}}">{{eti.nombre}}</a>
+          {% else %}
+          <a class="list-group-item" href="{{url_for("contactos",id=eti.id)}}">{{eti.nombre}}</a>
+          {% endif %}
+        {% endfor %}
+      
+      </div>
+      <br/>
+      {% if current_user.is_authenticated and current_user.is_admin() %}
+        <a class="btn btn-primary" href="{{url_for('contactos_new')}}" role="button">Nuevo contacto</a>
+      {% endif %}
+      <br/>
+
+      <form method="POST" action="/subir" enctype="multipart/form-data">
+        <br/>
+        <input type="file" name="archivo" required>
+        <br/>
+        <button type="submit">Cargar archivo</button>
+      </form>
+    </div>
+
+    <div class="col-md-10">
+	    <h4><strong>Contactos   
+        {% if etiqueta.nombre is defined %} 
+          <b> - {{etiqueta.nombre}} </b>
+        {% endif %} 
+      </strong></h4>
+	    
+      <div class="panel panel-default"> 			
+        <table class="table table-bordered">
+          <tr>
+            <th style="width:25%">Nombre</th>
+            <th style="width:30%">Apellidos</th>
+            <th style="width:45%">Notas</th>
+            
+            {% if current_user.is_authenticated and current_user.is_admin()  %}
+              <th>Modificar</th>
+              <th>Borrar</th>
+            {% endif %}   
+                      
+          </tr>
+  	    		{% for cont in contactos %}
+
+  	    			<tr>
+                <td>{{cont.nombre}}</td>
+                <td>{{cont.apellidos}}</td>
+                <td>{{cont.notas}}</td>
+                
+                {% if current_user.is_authenticated and current_user.is_admin()  %}
+                  <td><a href="{{url_for('contactos_edit',id=cont.id)}}"><span class="glyphicon glyphicon-pencil"></span> Modificar</a></td>
+                  <td><a href="{{url_for('contactos_delete',id=cont.id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+                {% endif %}   
+                
+            {% endfor %}
+          </tr>
+        </table>	    
+  	  </div>
+    </div>
+</div>
+ 	
+{% endblock %}

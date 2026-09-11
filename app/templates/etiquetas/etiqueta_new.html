@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Appweb Contactos{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <h3>Etiqueta</h3>
+
+    {% for field, errors in form.errors.items() %}
+      <div class="alert alert-danger">
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+      </div>
+    {% endfor %}
+      
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        {{ form.csrf_token }}
+        {{form.nombre.label() }}{{form.nombre(size="100",class="form-control")}}<br/><br/>
+        {{form.descripcion.label() }}{{form.descripcion(size="200",class="form-control")}}<br/><br/>
+      </div>
+        {{form.submit(class="btn btn-lg btn-primary btn-block")}}
+    </form>
+  
+  </div>
+</div>
+ 	  
+{% endblock %}

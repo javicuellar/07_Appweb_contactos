@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Appweb Contactos{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+        <form class="form-signin" method="post">
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+          <h2 class="form-signin-heading">Login</h2>
+          {{ form.csrf_token }}
+          {{form.username.label()}} {{form.username(class="form-control")}}
+          <br/>
+          {{form.password.label()}} {{form.password(class="form-control")}}
+          <br/>
+          {{form.submit(class="btn btn-lg btn-primary btn-block")}}
+        </form>
+  </div>
+  <div class="col-md-4"></div>
+</div> <!-- /container -->
+
+{% endblock %}

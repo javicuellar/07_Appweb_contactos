@@ -1,0 +1,46 @@
+services:
+  python-07-appweb-contactos-alertas:
+    container_name: 'python-07-appWeb_contactos-alertas_0.2'
+    #  Versión: 0.2 - Incorporamos las alertas en ejecutar.sh
+    #  Versión: 0.1 - pasamos de crearlo por Dockerfile a cratearlo en proyecto con docker-compose
+    
+    # Otra posibilidad es crearlo en un Dockerfile y luego hacer un build
+    # build: './application'
+    
+    # Si no se crea con build, se puede hacer con image
+    image: 'python:3.13.2'
+    
+    # Si es necesario asignar puertos (al tener red host no es necesario)
+    # ports:
+    #  - '5000:5000'
+    
+    volumes:
+      - '/volume1/informatica/Python:/usr/python:rw'
+      - '/volume1/informatica/Python/bd:/usr/bd:rw'
+      - '/volume1/informatica/Python/config:/usr/config:ro'
+      - '/volume2/video:/video:ro'
+    
+    # Definir el directorio de trabajo
+    working_dir: /usr/python
+    
+    # Usamos la red del host
+    network_mode: host
+    
+    # Se puede reiniciar siempre o sólo en caso de error
+    # restart: always
+    # restart: on-failure
+
+    # Se pueden definir dependencias entre servicios
+    # depends_on:
+    #    - database
+
+    # Añadir variables de entorno
+    # environment: 
+    #    - PORT=8080
+    #    - DB_USER=user
+    #    - DB_PASS=password
+    #   o incluimos en un archivo .env
+    #env_file: ./application/.env
+
+    # Comando a ejecutar
+    command: "./Proyectos/07_Appweb_contactos/ejecutar.sh"

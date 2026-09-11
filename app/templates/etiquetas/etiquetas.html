@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Appweb Contactos{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+  <div class="row">
+  
+    <h3>Etiquetas</h3>  
+    <br/>
+
+    {% if current_user.is_authenticated and current_user.is_admin() %}
+      <a class="btn btn-primary" href="{{url_for('etiqueta_edit')}}" role="button">Nueva etiqueta</a>
+    {% endif %}
+
+    <br/><br/>
+    
+    <div class="list-group">
+      
+      <table class="table table-bordered">
+          <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+          </tr>
+          
+          {% for eti in etiquetas %}
+          <tr>
+            <td>{{eti.nombre}}</td>
+            <td>{{eti.descripcion}}</td>
+            {% if current_user.is_authenticated and current_user.is_admin()  %}
+              <td><a href="{{url_for('etiqueta_edit',id=eti.id)}}"><span class="glyphicon glyphicon-pencil"></span> Modificar</a></td>
+              <td><a href="{{url_for('etiqueta_delete',id=eti.id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+            {% endif %}   
+          </tr>
+          {% endfor %}
+      
+      </table>
+    
+    </div>  
+  </div>
+</div>
+ 	
+  
+{% endblock %}
