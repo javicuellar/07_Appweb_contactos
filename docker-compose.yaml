@@ -15,9 +15,9 @@ services:
     #  - '5000:5000'
     
     volumes:
-      - '/volume1/informatica/Python:/usr/python:rw'
-      - '/volume1/informatica/Python/bd:/usr/bd:rw'
-      - '/volume1/informatica/Python/config:/usr/config:ro'
+      - '/volume1/docker/python:/usr/python:rw'
+      - '/volume1/docker/python/bd:/usr/bd:rw'
+      - '/volume1/docker/python/config:/usr/config:ro'
       - '/volume2/video:/video:ro'
     
     # Definir el directorio de trabajo
